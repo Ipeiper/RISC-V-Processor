@@ -28,6 +28,8 @@ module controller (
     output logic immextctrl
     //selector for where to source the input of PC from
     output logic PCsrc
+    //Write enable for the pc counter
+    output logic PCwren
     //controls when the instruction register should accept and hold the new input
     output logic IRctrl
     //selector for the multiplexer that controls the source for the ALU A channel
@@ -35,7 +37,7 @@ module controller (
     //selector for the multiplexer that controls the source for the ALU B channel
     output logic ALUscrB
     //controls the write register destination multiplexer 
-    output logic rdsel
+    output logic rdsrc
     //outputs field func 3 from the instruction for use in the DMEM
     output logic func3
 );
@@ -71,48 +73,117 @@ typedef enum logic [5:0] {
 //defines the current instruction using the new type
 instruction_t curinst;
 
+//defines exception for when we try and decode an invalid instruction, throws it high
+logic [0:0] exception = 1'b0;
+
 //Phase is the main variable behind the state of the FSM
 logic [2:0]phase <=0;
 
 //Main FSM that controls the processor
 //seperated into different phases that are the cycles used by the processor
 unique case (phase)
-    : 0 begin // the very first phase. [insert what it does]
-
-    end
-    : 1 begin // the second phase
+    : 0  // the very first phase. [insert what it does]
+        unique case (curinst)
+            : LUI  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : AUIPC  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : JAL  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : JALR  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : BEQ  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : BNE  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : BGE  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : BLTU  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : BGEU  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : LB  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : LH  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : LW  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : LBU  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : LHU  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : SB  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : SH  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : SW  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : ADDI  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : SLTI  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : SLTIU  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : XORI  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : ORI  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : ANDI  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : SLLI  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : SRLI  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : SRAI  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : ADD  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : SUB  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : SLL  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : SLT  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : SLTU  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : XOR  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : SRL  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : SRA  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : OR  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : AND  // Load Upper Immmediate
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : ILLEGAL  // Load Upper Immmediate
+            assign exception = 1'b1;
+            
+        endcase
+    : 1  // the second phase
         
-    end
-    : 2 begin // the third phase
+    : 2  // the third phase
 
-    end
-    : 3 begin // the fourth phase
+    : 3  // the fourth phase
 
-    end
 endcase
 
 
 //combinational that determines the instruction type from the instruction
 always_comb begin
     case(opcode[6:2])
-        :5'b0 1 1 0 0 1 1 begin // R-type
+        :5'b0 1 1 0 0 1 1  // R-type
             type = RTYPE;
-        end
-        :5'b1 1 0 1 1 1 1 begin // J-type
+        :5'b1 1 0 1 1 1 1  // J-type
             type = JTYPE;
-        end
-        :5'b0 1 0 0 0 1 1 begin //S-type
+        :5'b0 1 0 0 0 1 1  //S-type
             type = STYPE;
-        end
-        :5'b1 1 0 0 1 1 1,5'b0 0 0 0 0 1 1,5'b0 0 1 0 0 1 1 begin //I-type
+        :5'b1 1 0 0 1 1 1,5'b0 0 0 0 0 1 1,5'b0 0 1 0 0 1 1  //I-type
             type = ITYPE;
-        end
-        :5'b1 1 0 0 0 1 1 begin //B-type
+        :5'b1 1 0 0 0 1 1  //B-type
             type = BTYPE;
-        end
-        :5'b0 1 1 0 1 1 1,5'b0 0 1 0 1 1 1 begin //U-type
+        :5'b0 1 1 0 1 1 1,5'b0 0 1 0 1 1 1  //U-type
             type = UTYPE;
-        end
 
     endcase
     
