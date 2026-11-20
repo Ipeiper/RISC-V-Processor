@@ -86,75 +86,77 @@ unique case (phase)
         unique case (curinst)
             : LUI  // Load Upper Immmediate
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : AUIPC  // Load Upper Immmediate
+            : AUIPC  // Add Upper Immediate to PC
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : JAL  // Load Upper Immmediate
+            : JAL  // Jump And Link
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : JALR  // Load Upper Immmediate
+            : JALR  // Jump And Link Register
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : BEQ  // Load Upper Immmediate
+            : BEQ  // Branch Equal
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : BNE  // Load Upper Immmediate
+            : BNE  // Branch Not Equal
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : BGE  // Load Upper Immmediate
+            : BLT  // Branch Less Than
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : BLTU  // Load Upper Immmediate
+            : BGE  // Branch Greater or Equal
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : BGEU  // Load Upper Immmediate
+            : BLTU  // Branch Less Than Unsigned
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : LB  // Load Upper Immmediate
+            : BGEU  // Branch Greater or Equal Unsigned
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : LH  // Load Upper Immmediate
+            : LB  // Load Byte
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : LW  // Load Upper Immmediate
+            : LH  // Load Halfword
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : LBU  // Load Upper Immmediate
+            : LW  // Load Word
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : LHU  // Load Upper Immmediate
+            : LBU  // Load Byte Unsigned
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : SB  // Load Upper Immmediate
+            : LHU  // Load Halfword Unsigned
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : SH  // Load Upper Immmediate
+            : SB  // Store Byte
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : SW  // Load Upper Immmediate
+            : SH  // Store Halfword
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : ADDI  // Load Upper Immmediate
+            : SW  // Store Word
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : SLTI  // Load Upper Immmediate
+            : ADDI  // Add Immediate
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : SLTIU  // Load Upper Immmediate
+            : SLTI  // Set Less Than Immediate
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : XORI  // Load Upper Immmediate
+            : SLTIU  // Set Less Than Immediate Unsigned
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : ORI  // Load Upper Immmediate
+            : XORI  // Exclusive Or Immediate
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : ANDI  // Load Upper Immmediate
+            : ORI  // Or Immediate
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : SLLI  // Load Upper Immmediate
+            : ANDI  // And Immediate
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : SRLI  // Load Upper Immmediate
+            : SLLI  // Shift Left Logical Immediate
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : SRAI  // Load Upper Immmediate
+            : SRLI  // Shift Right Logical Immediate
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : ADD  // Load Upper Immmediate
+            : SRAI  // Shift Right Arithmetic Immediate
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : SUB  // Load Upper Immmediate
+            : ADD  // Add
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : SLL  // Load Upper Immmediate
+            : SUB  // Subtract
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : SLT  // Load Upper Immmediate
+            : SLL  // Shift Left Logical
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : SLTU  // Load Upper Immmediate
+            : SLT  // Set Less Than
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : XOR  // Load Upper Immmediate
+            : SLTU  // Set Less Than Unsigned
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : SRL  // Load Upper Immmediate
+            : XOR  // Exclusive Or
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : SRA  // Load Upper Immmediate
+            : SRL  // Shift Right Logical
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : OR  // Load Upper Immmediate
+            : SRA  // Shift Right Arithmetic
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
-            : AND  // Load Upper Immmediate
+            : OR  // Or
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+            : AND  // And
             assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
             : ILLEGAL  // Load Upper Immmediate
             assign exception = 1'b1;
