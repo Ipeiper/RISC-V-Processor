@@ -3,11 +3,16 @@
 
 
 /*
-000 (add) lw, sw
-001 (subtract) beq
-000 (add) add
-000 11 001 (subtract) sub
-101 (set less than) slt
-011 (or) or
-010 (and) and
+0000	ADD
+0001	SUB
+0010	AND
+0011	OR
+0100	XOR
+0101	SLL
+0110	SRL
+0111	SRA
+1000	SLT
+1001	SLTU
 */
+
+//make the ALUout multiplexer have pasthrough on 0 and the register active on 1
