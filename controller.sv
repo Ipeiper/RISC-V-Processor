@@ -220,7 +220,9 @@ always_ff (@posedge clk) begin
                 : SH  // Store Halfword
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
                 : SW  // Store Word
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=1,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 17'b00000010000000000;
+                phase <= 0;
                 : ADDI  // Add Immediate
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
                 : SLTI  // Set Less Than Immediate
@@ -302,7 +304,8 @@ always_ff (@posedge clk) begin
                 : SH  // Store Halfword
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
                 : SW  // Store Word
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=0;
                 : ADDI  // Add Immediate
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
                 : SLTI  // Set Less Than Immediate
