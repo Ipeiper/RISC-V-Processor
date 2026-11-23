@@ -8,38 +8,38 @@ module controller (
     input logic clk,
     //Instruction is the 32 bit long instruction coming from the instruction register
     //It will get pared down into its sub parts based on a number of factors
-    input logic instruction,
+    input logic [31:0] instruction,
     //The Zero flag from the ALU, used for operations like branch and comparison
     input logic ALUZero,
 
     //Outputs
     //1' controls whether to write current ALU output signal to micro arch register ALUout
-    output logic ALUout,
-    //3' Controls what type of opperation the ALU does
-    output logic ALUctrl,
+    output logic [0:0] ALUout,
+    //4' Controls what type of opperation the ALU does
+    output logic [3:0] ALUctrl,
     //1' controls whether we use alu value held in ALUout or the new alu value
-    output logic ALUsel,
+    output logic [0:0] ALUsel,
     //1' write enable for the register file
-    output logic regwren
+    output logic [0:0] regwren,
     //1' write enable for the dmem file
-    output logic DMEMwren
+    output logic [0:0] DMEMwren,
     //control signal for the immediate control
     // [Insert format here when we design it]
-    output logic immextctrl
+    output logic [2:0] immextctrl,
     //selector for where to source the input of PC from
-    output logic PCsrc
+    output logic [0:0] PCsrc,
     //Write enable for the pc counter
-    output logic PCwren
+    output logic [0:0] PCwren,
     //controls when the instruction register should accept and hold the new input
-    output logic IRctrl
+    output logic [0:0] IRctrl,
     //selector for the multiplexer that controls the source for the ALU A channel
-    output logic ALUsrcA
+    output logic [0:0] ALUsrcA,
     //selector for the multiplexer that controls the source for the ALU B channel
-    output logic ALUscrB
+    output logic [0:0] ALUscrB,
     //controls the write register destination multiplexer 
-    output logic rdsrc
+    output logic [1:0] rdsrc,
     //outputs field func 3 from the instruction for use in the DMEM
-    output logic func3
+    output logic [2:0] func3
 );
 
 //pulls the opcode out of the instruciton
@@ -88,13 +88,14 @@ always_ff (@posedge clk) begin
 
     unique case (phase)
         : 0  // the very first phase. this is where we fetch the instruction. therefore, we have no clue what the instruction is and cannot use it
-            //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=1,rdsrc=00
-            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000000100;
+            //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=1,IRctrl=1,rdsrc=00
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000001100;
             phase <= 1;
         : 1 // the second phase. this is where we let the instruction flow into the register and the fsm to decode the instruction
             //therefore, all the controler has to do is wait and turn the instruction control off.
-            //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
-            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000000000;
+            // this is where we compute the branch target and record it in ALU out for use in instrucitons like beq
+            //sets ALUout=1,ALUctrl=0000,ALUsel=0,ALUsrcA=1,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=011,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+            assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000110001100000;
             phase <= 2;
         : 2  // the third phase. this is where things start getting executed. we already have the register values and the instruction decoded
             unique case (curinst)
@@ -108,7 +109,9 @@ always_ff (@posedge clk) begin
                 : JALR  // Jump And Link Register
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
                 : BEQ  // Branch Equal
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0001,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000000000000000;
+                phase <= 3; // sets to 3 not for memory access, but to evaluate what to do now that we have the zero flag
                 : BNE  // Branch Not Equal
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
                 : BLT  // Branch Less Than
@@ -212,7 +215,16 @@ always_ff (@posedge clk) begin
                 : JALR  // Jump And Link Register
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
                 : BEQ  // Branch Equal
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                if (ALUZero == 1) begin
+                    //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=1,PCwren=1,IRctrl=0,rdsrc=00
+                    assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000011000;
+                    phase<=0;
+                end
+                else begin
+                    //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                    assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000000000;
+                    phase<=0;
+                end
                 : BNE  // Branch Not Equal
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
                 : BLT  // Branch Less Than
