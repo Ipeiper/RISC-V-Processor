@@ -14,5 +14,12 @@
 1000	SLT
 1001	SLTU
 */
+/*
+generate the following outputs
+Zero
+Negative
+Carry (1=no borrow)
+Overflow
+*/
 
 //make the ALUout multiplexer have pasthrough on 0 and the register active on 1

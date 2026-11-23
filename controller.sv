@@ -11,6 +11,12 @@ module controller (
     input logic [31:0] instruction,
     //The Zero flag from the ALU, used for operations like branch and comparison
     input logic ALUZero,
+    // the Negative flag from the ALU, tells us if the output is negative
+    input logic ALUNeg,
+    // the Carry flag from the ALU, tells us if the alu overflowed when it did an unsigned operation
+    input logic ALUCarry,
+    // the Overflow flag from the ALU, tells us if the alu overflowed when it did a signed operation
+    input logic ALUOver,
 
     //Outputs
     //1' controls whether to write current ALU output signal to micro arch register ALUout
@@ -113,15 +119,25 @@ always_ff (@posedge clk) begin
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000000000000000;
                 phase <= 3; // sets to 3 not for memory access, but to evaluate what to do now that we have the zero flag
                 : BNE  // Branch Not Equal
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0001,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000000000000000;
+                phase <= 3; // sets to 3 not for memory access, but to evaluate what to do now that we have the zero flag
                 : BLT  // Branch Less Than
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0001,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000000000000000;
+                phase <= 3; // sets to 3 not for memory access, but to evaluate what to do now that we have the zero flag
                 : BGE  // Branch Greater or Equal
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0001,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000000000000000;
+                phase <= 3; // sets to 3 not for memory access, but to evaluate what to do now that we have the zero flag
                 : BLTU  // Branch Less Than Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0001,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000000000000000;
+                phase <= 3; // sets to 3 not for memory access, but to evaluate what to do now that we have the zero flag
                 : BGEU  // Branch Greater or Equal Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0001,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000000000000000;
+                phase <= 3; // sets to 3 not for memory access, but to evaluate what to do now that we have the zero flag
                 : LB  // Load Byte
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
                 : LH  // Load Halfword
@@ -226,15 +242,60 @@ always_ff (@posedge clk) begin
                     phase<=0;
                 end
                 : BNE  // Branch Not Equal
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                if (ALUZero == 0) begin
+                    //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=1,PCwren=1,IRctrl=0,rdsrc=00
+                    assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000011000;
+                    phase<=0;
+                end
+                else begin
+                    //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                    assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000000000;
+                    phase<=0;
+                end
                 : BLT  // Branch Less Than
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                if (ALUNeg ^ ALUOver) begin
+                    //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=1,PCwren=1,IRctrl=0,rdsrc=00
+                    assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000011000;
+                    phase<=0;
+                end
+                else begin
+                    //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                    assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000000000;
+                    phase<=0;
+                end
                 : BGE  // Branch Greater or Equal
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                if (!(ALUNeg ^ ALUOver)) begin
+                    //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=1,PCwren=1,IRctrl=0,rdsrc=00
+                    assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000011000;
+                    phase<=0;
+                end
+                else begin
+                    //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                    assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000000000;
+                    phase<=0;
+                end
                 : BLTU  // Branch Less Than Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                if (!ALUCarry) begin
+                    //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=1,PCwren=1,IRctrl=0,rdsrc=00
+                    assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000011000;
+                    phase<=0;
+                end
+                else begin
+                    //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                    assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000000000;
+                    phase<=0;
+                end
                 : BGEU  // Branch Greater or Equal Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                if (ALUCarry) begin
+                    //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=1,PCwren=1,IRctrl=0,rdsrc=00
+                    assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000011000;
+                    phase<=0;
+                end
+                else begin
+                    //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                    assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000000000000000;
+                    phase<=0;
+                end
                 : LB  // Load Byte
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
                 : LH  // Load Halfword
@@ -308,17 +369,23 @@ always_ff (@posedge clk) begin
                 : JALR  // Jump And Link Register
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
                 : BEQ  // Branch Equal
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=0;
                 : BNE  // Branch Not Equal
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=0;
                 : BLT  // Branch Less Than
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=0;
                 : BGE  // Branch Greater or Equal
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=0;
                 : BLTU  // Branch Less Than Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=0;
                 : BGEU  // Branch Greater or Equal Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=0;
                 : LB  // Load Byte
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
                 : LH  // Load Halfword
