@@ -139,43 +139,73 @@ always_ff (@posedge clk) begin
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000000000000000;
                 phase <= 3; // sets to 3 not for memory access, but to evaluate what to do now that we have the zero flag
                 : LB  // Load Byte
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000010000000000;
+                phase <=3;
                 : LH  // Load Halfword
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000010000000000;
+                phase <=3;
                 : LW  // Load Word
                 //sets ALUout=1,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000010000000000;
                 phase <=3;
                 : LBU  // Load Byte Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000010000000000;
+                phase <=3;
                 : LHU  // Load Halfword Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000010000000000;
+                phase <=3;
                 : SB  // Store Byte
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000010000000000;
+                phase <=3;
                 : SH  // Store Halfword
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000010000000000;
+                phase <=3;
                 : SW  // Store Word
                 //sets ALUout=1,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000010000000000;
                 phase <=3;
                 : ADDI  // Add Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000000000000000;
+                phase <=4;
                 : SLTI  // Set Less Than Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=1000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b110000010000000000;
+                phase <=4;
                 : SLTIU  // Set Less Than Immediate Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=1001,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b110010010000000000;
+                phase <=4;
                 : XORI  // Exclusive Or Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=0100,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b101000010000000000;
+                phase <=4;
                 : ORI  // Or Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=0011,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100110010000000000;
+                phase <=4;
                 : ANDI  // And Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=0010,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100100010000000000;
+                phase <=4;
                 : SLLI  // Shift Left Logical Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=0101,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b101010010000000000;
+                phase <=4;
                 : SRLI  // Shift Right Logical Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=0110,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b101100010000000000;
+                phase <=4;
                 : SRAI  // Shift Right Arithmetic Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=1,ALUctrl=0111,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b101110010000000000;
+                phase <=4;
                 : ADD  // Add
                 //sets ALUout=1,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b100000000000000000;
@@ -297,63 +327,94 @@ always_ff (@posedge clk) begin
                     phase<=0;
                 end
                 : LB  // Load Byte
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000010000000000;
+                phase <= 4;
                 : LH  // Load Halfword
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000010000000000;
+                phase <= 4;
                 : LW  // Load Word
                 //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000010000000000;
                 phase <= 4;
                 : LBU  // Load Byte Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000010000000000;
+                phase <= 4;
                 : LHU  // Load Halfword Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000010000000000;
+                phase <= 4;
                 : SB  // Store Byte
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=1,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000010000000000;
+                phase <= 0;
                 : SH  // Store Halfword
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=1,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000010000000000;
+                phase <= 0;
                 : SW  // Store Word
                 //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=1,regwren=0,DMEMwren=1,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000010000000000;
                 phase <= 0;
                 : ADDI  // Add Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : SLTI  // Set Less Than Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : SLTIU  // Set Less Than Immediate Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : XORI  // Exclusive Or Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : ORI  // Or Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : ANDI  // And Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : SLLI  // Shift Left Logical Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : SRLI  // Shift Right Logical Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : SRAI  // Shift Right Arithmetic Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : ADD  // Add
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : SUB  // Subtract
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : SLL  // Shift Left Logical
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : SLT  // Set Less Than
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : SLTU  // Set Less Than Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : XOR  // Exclusive Or
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : SRL  // Shift Right Logical
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : SRA  // Shift Right Arithmetic
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : OR  // Or
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : AND  // And
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=4;
                 : ILLEGAL  // Load Upper Immmediate
                 assign exception = 1'b1;
                 
@@ -387,72 +448,110 @@ always_ff (@posedge clk) begin
                 //should not exist
                 phase <=0;
                 : LB  // Load Byte
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=1,IRctrl=0,rdsrc=01
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b00000000100001001;
+                phase <=0;
                 : LH  // Load Halfword
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=1,IRctrl=0,rdsrc=01
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b00000000100001001;
+                phase <=0;
                 : LW  // Load Word
                 //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=1,IRctrl=0,rdsrc=01
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b00000000100001001;
                 phase <=0;
                 : LBU  // Load Byte Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=1,IRctrl=0,rdsrc=01
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b00000000100001001;
+                phase <=0;
                 : LHU  // Load Halfword Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=1,IRctrl=0,rdsrc=01
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b00000000100001001;
+                phase <=0;
                 : SB  // Store Byte
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=0;
                 : SH  // Store Halfword
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //should not exist
+                phase <=0;
                 : SW  // Store Word
                 //should not exist
                 phase <=0;
                 : ADDI  // Add Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : SLTI  // Set Less Than Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : SLTIU  // Set Less Than Immediate Unsigned
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : XORI  // Exclusive Or Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : ORI  // Or Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : ANDI  // And Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : SLLI  // Shift Left Logical Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : SRLI  // Shift Right Logical Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : SRAI  // Shift Right Arithmetic Immediate
-                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 12'b000000000000;
+                //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
+                assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : ADD  // Add
                 //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : SUB  // Subtract
                 //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : SLL  // Shift Left Logical
                 //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : SLT  // Set Less Than
                 //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : SLTU  // Set Less Than Unsigned
                 //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : XOR  // Exclusive Or
                 //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : SRL  // Shift Right Logical
                 //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : SRA  // Shift Right Arithmetic
                 //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : OR  // Or
                 //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : AND  // And
                 //sets ALUout=0,ALUctrl=0000,ALUsel=0,ALUsrcA=0,ALUscrB=0,regwren=1,DMEMwren=0,immextctrl=000,PCsrc=0,PCwren=0,IRctrl=0,rdsrc=00
                 assign {ALUout,ALUctrl,ALUsel,ALUsrcA,ALUscrB,regwren,DMEMwren,immextctrl,PCsrc,PCwren,IRctrl,rdsrc}= 18'b000000001000000000;
+                phase <=0;
                 : ILLEGAL  // Load Upper Immmediate
                 assign exception = 1'b1;
                 
